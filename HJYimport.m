@@ -254,7 +254,7 @@ close(hwb)
 Xb(del,:,:)=[];
 Xs(del,:,:)=[];
 A(del,:,:)=[];
-filelist(cnt)=[];
+filelist(del)=[];
 disp(['Import completed. ',num2str(cnt),' of ',num2str(nfiles),' discovered blank + sample EEMs & absorbance spectra imported.'])
 disp('  ')
 %% Allocate dataset & blank dataset
@@ -270,8 +270,9 @@ DSb.nSample=size(Xb,1);
 DSb.filelist=filelist;
 DSb.i=(1:size(Xs,1))';
 DSb.Xunit='Arbitrary fluorometer counts.';
-checkdataset(DSb,'output',false)
-
+if exist('checkdataset','file')>0
+    checkdataset(DSb,'output',false)
+end
 
 DS.X=Xs;
 DS.Abs=A;
@@ -286,7 +287,9 @@ DS.i=(1:size(Xs,1))';
 DS.Xunit='Arbitrary fluorometer counts.';
 DS.Xife='No correction by drEEM';
 
-checkdataset(DS,'output',false)
+if exist('checkdataset','file')>0
+    checkdataset(DS,'output',false)
+end
 disp('Data import complete.')
 disp('  ')
 end
